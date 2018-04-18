@@ -10,7 +10,7 @@ class Exporter {
 	public function getAllSubscriptionsWithTeams() {
 		$query = "
 		  SELECT *
-		  FROM `inschrijving` AS I JOIN `team` AS T ON I.`id` = T.`inschrijvingsId`
+		  FROM inschrijving AS I JOIN team AS T ON I.id = T.inschrijvingsId
 		  WHERE jaar = '$this->year'
 		";
 		$result = pg_query($query) or die('Query failed: ' . pg_last_error());

@@ -23,7 +23,7 @@ class SubscriptionManager {
     }
 
     private function loadSubscriptions() {
-        $query = "SELECT * FROM `inschrijving` WHERE `jaar` = '$this->year' ORDER BY `inschrijfnummer`";
+        $query = "SELECT * FROM inschrijving WHERE jaar = '$this->year' ORDER BY inschrijfnummer";
 
         $result = pg_query($query) or die('Query failed: ' . pg_last_error());
 
@@ -53,7 +53,7 @@ class SubscriptionManager {
         }
         pg_free_result($result);
 
-        $query = "SELECT * FROM `team`";
+        $query = "SELECT * FROM team";
         $result = pg_query($query) or die('Query failed: ' . pg_last_error());
         while ($team = pg_fetch_assoc($result)) {
             if ($this->subscriptions[$team['inschrijvingsid']]) {
@@ -127,9 +127,9 @@ class SubscriptionManager {
 
 	private function setStatus($id, $status) {
 		$query = "
-		  UPDATE `team`
-		  SET `status`='$status'
-		  WHERE `id`=$id
+		  UPDATE team
+		  SET status='$status'
+		  WHERE id=$id
         ";
         pg_query($query) or die('Query failed: ' . pg_last_error());
 	}
@@ -147,8 +147,8 @@ class SubscriptionManager {
     private function updatePaid($id, $paid) {
         $now = date('Y-m-d');
         $query = "
-            UPDATE `inschrijving`
-            SET `betaald`=$paid, `betaaldatum`=$now
+            UPDATE inschrijving
+            SET betaald=$paid, betaaldatum=$now
             WHERE inschrijfnummer=$id
         ";
         pg_query($query) or die('Query failed: ' . pg_last_error());
