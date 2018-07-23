@@ -145,11 +145,10 @@ class SubscriptionManager {
     }
 
     private function updatePaid($id, $paid) {
-        $now = date('Y-m-d');
         $query = "
             UPDATE inschrijving
-            SET betaald=$paid, betaaldatum=$now
-            WHERE inschrijfnummer=$id
+            SET betaald=$paid, betaaldatum=CURRENT_DATE
+            WHERE inschrijfnummer='$id'
         ";
         pg_query($query) or die('Query failed: ' . pg_last_error());
     }
